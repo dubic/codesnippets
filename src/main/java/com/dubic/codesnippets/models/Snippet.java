@@ -59,6 +59,8 @@ public class Snippet implements Serializable {
     private Date modified;
     @Column(name = "views")
     private int views;
+    @Column(name = "private")
+    private boolean PRIVATE = false;
 
     public Snippet() {
     }
@@ -150,6 +152,14 @@ public class Snippet implements Serializable {
 
     public void setViews(int views) {
         this.views = views;
+    }
+
+    public boolean isPRIVATE() {
+        return PRIVATE;
+    }
+
+    public void setPRIVATE(boolean PRIVATE) {
+        this.PRIVATE = PRIVATE;
     }
     
 

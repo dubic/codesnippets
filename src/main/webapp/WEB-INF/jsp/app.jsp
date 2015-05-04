@@ -43,12 +43,18 @@
         <script src="/codesnippets/resources/js/home/controllers/view-ctrl.js" type="text/javascript"></script> 
         <script src="/codesnippets/resources/js/home/controllers/edit-ctrl.js" type="text/javascript"></script> 
         <script src="/codesnippets/resources/js/home/controllers/welcome-ctrl.js" type="text/javascript"></script> 
+        <script src="/codesnippets/resources/js/home/controllers/shared-ctrl.js" type="text/javascript"></script> 
+        <script src="/codesnippets/resources/js/home/controllers/settings-ctrl.js" type="text/javascript"></script> 
+        <script src="/codesnippets/resources/js/home/controllers/account-ctrl.js" type="text/javascript"></script> 
+        <script src="/codesnippets/resources/js/home/controllers/email-ctrl.js" type="text/javascript"></script> 
+        <script src="/codesnippets/resources/js/home/controllers/snipsetts-ctrl.js" type="text/javascript"></script> 
+        <script src="/codesnippets/resources/js/home/controllers/search-ctrl.js" type="text/javascript"></script> 
         <script src="/codesnippets/resources/js/home/controllers.js" type="text/javascript"></script> 
 
         <!--<script src="/codesnippets/resources/js/home.js" type="text/javascript"></script>--> 
     </footer>
     <script>
-                    $(document).mouseup(function(e) {
+                    $(document).mouseup(function (e) {
                         var container = $(".pop-container");
 
                         if (!container.is(e.target) // if the target of the click isn't the container...
@@ -56,6 +62,14 @@
                         {
                             $(".pop").slideUp();
                         }
+                    });
+
+                    $('.scroller').slimScroll({
+                        size: '7px',
+                        color: '#a1b2bd',
+                        opacity: .3,
+                        allowPageScroll: false,
+                        disableFadeOut: false
                     });
     </script>
 </html>

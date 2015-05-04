@@ -15,9 +15,9 @@ public class Validate {
 
     public Validate(Object test) {
         this.test = test;
-        if (test == null) {
-            throw new IllegalArgumentException("No test property");
-        }
+//        if (test == null) {
+//            throw new IllegalArgumentException("No test property");
+//        }
     }
 
     public Validate notEmpty(String msg) throws InvalidException {

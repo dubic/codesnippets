@@ -53,6 +53,7 @@ public class User implements UserDetails, Serializable {
     private Long id;
     private String screenName;
     private String email;
+    private boolean showEmail = true;
     private String password;
     private String firstname;
     private String lastname;
@@ -163,9 +164,11 @@ public class User implements UserDetails, Serializable {
 
     @OneToMany
     @JoinTable(
-      name="user_roles",
-      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-      inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
+            name = "user_roles",
+            joinColumns = {
+                @JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "role_id", referencedColumnName = "id")})
     public List<Role> getRoles() {
         return roles;
     }
@@ -209,6 +212,15 @@ public class User implements UserDetails, Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "show_email")
+    public boolean isShowEmail() {
+        return showEmail;
+    }
+
+    public void setShowEmail(boolean showEmail) {
+        this.showEmail = showEmail;
     }
 
     @Override
@@ -272,6 +284,5 @@ public class User implements UserDetails, Serializable {
         final User other = (User) obj;
         return this.id == other.id || (this.id != null && this.id.equals(other.id));
     }
-    
-    
+
 }

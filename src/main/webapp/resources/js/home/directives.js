@@ -5,15 +5,15 @@
  */
 
 angular.module('Snips', [])
-        .directive('updateOnBlur', function() {
+        .directive('updateOnBlur', function () {
             'use strict';
 
             return {
                 restrict: 'A',
                 priority: -10,
 //                require: 'ngModel',
-                link: function(scope, element, attr) {
-                    element.blur(function() {
+                link: function (scope, element, attr) {
+                    element.blur(function () {
                         $('input[type=password]').trigger('change');
                     });
 //                        scope.$watch(function() {
@@ -24,7 +24,7 @@ angular.module('Snips', [])
                 }
             };
         })
-        .directive('popShow', function() {
+        .directive('popShow', function () {
             'use strict';
 //attr : showDialog,sDialog[jquery dialog selector],onShow,onShown,onHide[callbacks]
             return {
@@ -33,10 +33,10 @@ angular.module('Snips', [])
                 scope: {
                     popShowTrigger: '='
                 },
-                link: function(scope, element, attr) {
-                    scope.$watch(function() {
+                link: function (scope, element, attr) {
+                    scope.$watch(function () {
                         return scope.popShowTrigger;
-                    }, function(value) {
+                    }, function (value) {
                         if (value === true) {
                             if (attr.popShowAnim === 'slide')
                                 $('#' + attr.popShow).slideDown();
@@ -51,7 +51,7 @@ angular.module('Snips', [])
                     });
 
                     if (!attr.popShowTrigger) {
-                        element.click(function() {
+                        element.click(function () {
                             if (attr.popShowAnim === 'slide')
                                 $('#' + attr.popShow).slideToggle();
                             if (attr.popShowAnim === 'fade')
@@ -61,16 +61,16 @@ angular.module('Snips', [])
                 }
             };
         })
-        .directive('jqUniform', function() {
+        .directive('jqUniform', function () {
             'use strict';
             return {
                 restrict: 'A',
-                link: function(scope, element, attr) {
+                link: function (scope, element, attr) {
                     element.uniform();
                 }
             };
         })
-        .directive('select2', function() {
+        .directive('select2', function () {
             'use strict';
             return {
                 restrict: 'A',
@@ -79,15 +79,15 @@ angular.module('Snips', [])
                 scope: {
                     select2: '='
                 },
-                link: function(scope, element, attr, ngModel) {
+                link: function (scope, element, attr, ngModel) {
                     element.select2({
 //                        tags: true
                     });
 
                     if (attr.select2Sync) {
-                        scope.$watch(function( ) {
+                        scope.$watch(function ( ) {
                             return ngModel.$viewValue;
-                        }, function(value) {
+                        }, function (value) {
 //                            console.log('select values = ' + value);
                             element.select2("val", value);
                         });
@@ -95,7 +95,7 @@ angular.module('Snips', [])
                 }
             };
         })
-        .directive('tagCloud', function() {//converts an input field to a select2 tagcloud
+        .directive('tagCloud', function () {//converts an input field to a select2 tagcloud
             'use strict';
             return {
                 restrict: 'A',
@@ -104,14 +104,14 @@ angular.module('Snips', [])
                 scope: {
                     tagCloud: '='
                 },
-                link: function(scope, element, attr, ngModel) {
+                link: function (scope, element, attr, ngModel) {
                     element.select2({
                         tags: scope.tagCloud
                     });
 
-                    scope.$watch(function( ) {
+                    scope.$watch(function ( ) {
                         return ngModel.$modelValue;
-                    }, function(value) {
+                    }, function (value) {
 //                            console.log('select values = ' + value);
                         if (!angular.isUndefined(value)) {
                             element.select2("val", value.split(","));//value is returned as comma sep
@@ -120,11 +120,45 @@ angular.module('Snips', [])
                 }
             };
         })
-        .directive('prettyprint', function() {
+        .directive('prettyprint', function () {
             return {
                 restrict: 'C',
                 link: function postLink(scope, element, attrs) {
                     element.html(prettyPrintOne(scope.dom));
+                }
+            };
+        })
+        .directive('blockui', function () {
+            return {
+                restrict: 'A',
+                scope: {
+                    blockui: '='
+                },
+                link: function postLink(scope, element, attrs) {
+                    scope.$watch(function () {
+                        return scope.blockui;
+                    }, function (value) {
+                        if (value === true) {
+                            element.block({
+//                                message: '<img src="assets/img/loading.gif" align="">',
+                                message: '<p style="color:#ffffff">Loading...</p>',
+//                                centerY: centerY !== undefined ? centerY : true,
+                                css: {
+                                    top: '10%',
+                                    border: 'none',
+                                    padding: '2px',
+                                    backgroundColor: 'none'
+                                },
+                                overlayCSS: {
+                                    backgroundColor: '#000',
+                                    opacity: 0.5,
+                                    cursor: 'wait'
+                                }
+                            });
+                        } else {
+                            element.unblock();
+                        }
+                    });
                 }
             };
         });

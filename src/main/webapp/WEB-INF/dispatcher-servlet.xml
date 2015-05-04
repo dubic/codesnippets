@@ -34,11 +34,14 @@ http://www.springframework.org/schema/context
     
     <mvc:view-controller path="/app" view-name="app"/>
     <mvc:view-controller path="/home" view-name="home"/>
+    <mvc:view-controller path="/search" view-name="search"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
     
     <!--//////////////////////////////////////////////////////////////////////////////////////-->
     <!--    database configuration-->
@@ -65,8 +68,8 @@ http://www.springframework.org/schema/context
     The id becomes the default thread name prefix. -->             
     <task:scheduler id="taskScheduler" pool-size="1"/> 
   
-     <context:property-placeholder location="file:///C:/usr/share/codesnippets/conf.properties"/>
-   <!--<context:property-placeholder location="file:////usr/share/selfcare/conf.properties" />-->
+     <!--<context:property-placeholder location="file:///C:/usr/share/dubic/codesnippets/conf.properties"/>-->
+   <context:property-placeholder location="file:////usr/share/dubic/selfcare/conf.properties" />
     
     
     

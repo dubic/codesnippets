@@ -18,9 +18,7 @@ and open the template in the editor.
 header{
     border-bottom: 1px solid #ddd;
 }
-.sidebar{
 
-}
 .snipbtn{
     margin-left: 10px;
 }
@@ -32,7 +30,7 @@ header{
 }
 .sidebar-menu li > a{
     padding: 10px 0px 10px 10px;
-    color: #333;
+    color: #0D638F;
     text-decoration: none;
     display: block;
     clear: both;
@@ -42,17 +40,15 @@ header{
     /*border-bottom: 1px solid #ddd*/
 }
 .sidebar-menu li > a:hover{
-    background: #CCC;
     font-weight: bold;
 }
 .sidebar-menu li > a.active{
-    background: none repeat scroll 0% 0% #938D8D;
-    color: #fff;
+    border-left: 3px solid #ddd;
     font-weight: bold;
 }
 .sidebar-menu i{
     font-size: 17px;
-    color: #4B4444;
+    /*color: #4B4444;*/
 }
 .main{
     /*padding:15px;*/
@@ -129,23 +125,28 @@ header{
     border-radius: 0px  !important;
 }
 
-.snippet.ng-move,
-.snippet.ng-enter {
-    -webkit-transition:opacity ease 1s;
-    -moz-transition: opacity ease 1s;
-    transition:opacity ease 1s;
+
+
+.share-table{
+    width: 100%;
 }
-
-
-.snippet.ng-move,
-.snippet.ng-enter {
-    opacity:0;
-    /*max-height:0;*/
+.share-table .sharelist{
+    border-bottom: 1px solid #ddd;
 }
-
-
-.snippet.ng-move.ng-move-active,
-.snippet.ng-enter.ng-enter-active {
-    opacity:1;
-    /*max-height:40px;*/
+.share-table .sharelist td{
+    padding: 10px;
+    font-weight: bold;
+}
+.tip{
+    background: rgb(163, 41, 51);
+    padding: 5px;
+    color: white;
+    left: 20%;
+}
+ #shareModal textarea{
+    border:1px solid #ddd;
+    margin-top: 5px;
+}
+#shareModal textarea:focus{
+    border:1px solid #ddd;
 }

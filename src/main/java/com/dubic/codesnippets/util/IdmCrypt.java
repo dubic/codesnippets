@@ -4,8 +4,13 @@
  */
 package com.dubic.codesnippets.util;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -58,8 +63,15 @@ public class IdmCrypt {
         return s;
     }
  
-    public static void main(String[] atyty) {
+    public static void main(String[] atyty) throws FileNotFoundException, IOException {
 // String[] r = new String[]{"salacious","vulgar","offensive"};
-        System.out.println(castNull(null));
+//        File f = new File("C:/usr/share/codesnippets/pics/053c7f372332cc85b30aafe9d4c4aa1b");
+//        boolean delete = f.delete();
+        String fn = "1d618318e02131b4ef5557e1496564e2_1";
+        Properties prop =new Properties();
+        prop.load(new FileInputStream("C:\\usr\\share\\codesnippets\\conf.properties"));
+//        prop.list(System.out);
+        String pic = prop.getProperty("picture.location");
+        System.out.println("deleted : "+new File(pic+fn).delete());
     }
 }

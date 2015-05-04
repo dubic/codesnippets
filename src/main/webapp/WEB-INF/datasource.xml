@@ -32,7 +32,7 @@
             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">
                 <property name="database" value="${eclipselink.database}" />
                 <!--<property name="showSql" value="${eclipselink.showSql}" />-->
-                <property name="showSql" value="false" />
+                <property name="showSql" value="true" />
             </bean>
         </property>
         <property name="jpaPropertyMap">

@@ -924,7 +924,7 @@ var App = function () {
             }
             el.block({
                 message: '<img src="assets/img/loading.gif" align="">',
-                centerY: centerY != undefined ? centerY : true,
+                centerY: centerY !== undefined ? centerY : true,
                 css: {
                     top: '10%',
                     border: 'none',

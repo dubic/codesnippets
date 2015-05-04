@@ -5,38 +5,36 @@
  */
 
 
-ctrls.controller('profileCtrl', function($scope, $http, $rootScope, $timeout, services, $stateParams, imagePath) {
-    $scope.imagePath = imagePath;
-    $scope.Profile = {};
+ctrls.controller('profileCtrl', function ($scope, $http, $rootScope, postsPath, services, $stateParams) {
+    if ($stateParams.user === null) {
+        $stateParams.user = '}()';
+    }
 
-
-    $scope.load = function() {
-//        console.log($stateParams);
-        if (angular.isUndefined($stateParams.user))
+    $scope.loadingUser = true;
+    $scope.loadingSnips = true;
+    $http.get($rootScope.usersPath + '/profile/' + $stateParams.user).success(function (resp) {
+        if(resp.code === 404){
+            $rootScope.route('home');
             return;
-        $rootScope.loading = true;
-        $timeout(function() {
-
-            $scope.Profile.sceenName = 'dubic';
-            $scope.Profile.name = $stateParams.user;
-            $scope.Profile.date = '7 oct 2014';
-            $scope.Profile.jokes = Math.floor((Math.random() * 10000) + 1);
-            $scope.Profile.proverbs = Math.floor((Math.random() * 1000) + 1);
-            $scope.Profile.quotes = Math.floor((Math.random() * 1000) + 1);
-            $rootScope.loading = false;
-        }, 1000);
-    };
-    $scope.load();
-    $rootScope.navigate('profile.activity');
+        }
+        $scope.user = resp;
+        $scope.loadingUser = false;
+        
+        
+        $http.get(postsPath + '/load/user/' + resp.id).success(function (resp) {
+            $scope.snips = resp;
+            $scope.loadingSnips = false;
+        });
+    });
 });
 
-ctrls.controller('activityCtrl', function($scope, $http, $rootScope, $timeout, services, $stateParams, imagePath) {
+ctrls.controller('activityCtrl', function ($scope, $http, $rootScope, $timeout, services, $stateParams, imagePath) {
     $scope.imagePath = imagePath;
     $scope.Profile = {};
     $scope.Activity = {};
 
 
-    $scope.load = function() {
+    $scope.load = function () {
         console.log($stateParams);
         $scope.Profile.isMe = false;
         $scope.Activity.posts = [
@@ -59,33 +57,33 @@ ctrls.controller('activityCtrl', function($scope, $http, $rootScope, $timeout, s
 
 });
 
-ctrls.controller('accountCtrl', function($scope, $http, $rootScope, $timeout, services, $stateParams, imagePath) {
-    $scope.imagePath = imagePath;
-    $scope.Account = {};
-    $scope.Profile = {};
+//ctrls.controller('accountCtrl', function($scope, $http, $rootScope, $timeout, services, $stateParams, imagePath) {
+//    $scope.imagePath = imagePath;
+//    $scope.Account = {};
+//    $scope.Profile = {};
+//
+//    $scope.load = function() {
+//        if (angular.isUndefined($stateParams.user))
+//            return;
+//        $rootScope.loading = true;
+//        $timeout(function() {
+//            $scope.Profile.isMe = true;
+//            $scope.Account.firstname = 'krusty';
+//            $scope.Account.lastname = 'mc cloughklin';
+//            $scope.Account.email = 'udubic@gmail.com';
+//            $scope.Account.screenName = $stateParams.user;
+//            $scope.Account.date = '7 oct 2014';
+//            $rootScope.loading = false;
+//        }, 1000);
+//    };
+//    $scope.load();
+//
+//});
 
-    $scope.load = function() {
-        if (angular.isUndefined($stateParams.user))
-            return;
-        $rootScope.loading = true;
-        $timeout(function() {
-            $scope.Profile.isMe = true;
-            $scope.Account.firstname = 'krusty';
-            $scope.Account.lastname = 'mc cloughklin';
-            $scope.Account.email = 'udubic@gmail.com';
-            $scope.Account.screenName = $stateParams.user;
-            $scope.Account.date = '7 oct 2014';
-            $rootScope.loading = false;
-        }, 1000);
-    };
-    $scope.load();
-
-});
-
-ctrls.controller('pwordCtrl', function($scope, $http, $rootScope, $timeout, services) {
-    $scope.savePassword = function() {
+ctrls.controller('pwordCtrl', function ($scope, $http, $rootScope, $timeout, services) {
+    $scope.savePassword = function () {
         $scope.saving = true;
-        $timeout(function() {
+        $timeout(function () {
             $scope.pwordalerts = services.buildAlerts([{code: 0, msg: 'password changed successfully'}]);
             $scope.saving = false;
         }, 1000);

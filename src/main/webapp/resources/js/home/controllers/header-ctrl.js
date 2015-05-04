@@ -5,50 +5,80 @@
  */
 
 
-ctrls.controller('headerCtrl', function($scope, $http, $timeout,$rootScope) {
-        $scope.fullname = 'dubic uzuegbu';
-        $scope.pop = false;
-        $scope.insearch = false;
-        
+ctrls.controller('headerCtrl', function ($scope, $http, $timeout, $rootScope, notifPath) {
 
-        $scope.testDialog = function() {
-            $scope.insearch = false;
-        };
-        
-        $scope.logout = function() {
-            $http.get('logout').success(function(){
-                
-            });
-        };
-
-        $scope.search = function() {
-            if(angular.isUndefined($scope.Search.keyword)) return;
-            $scope.searching = true;
-            $timeout(function() {
-//                $scope.insearch = true;
-                $('.pop').slideDown();
-                $scope.searching = false;
-                $scope.searched = $scope.groups;
-            }, 1000);
-        };
-
-//        $scope.$watch(function( ) {
-//            return $scope.insearch;
-//        }, function(value) {
-//            console.log('select values = ' + value);
-//
-//        });
-
-        $scope.groups = [
-            {
-                name: 'Jokes',
-                count: 28,
-                lists: ['welcome to nigeria 99', 'the end of all things is at hand']
-            },
-            {
-                name: 'Proverbs',
-                count: 7,
-                lists: ['Oh bother', 'why do yiu disturb me']
-            }
-        ];
+    $scope.$on('authenticated', function (evt, user) {
+        console.log(user);
+        $scope.userDetails = user;
+        $scope.isAuthenticated = true;
+        $scope.notifUnreadCount();
     });
+
+    $scope.$on('signed.out', function (evt) {
+        $scope.isAuthenticated = false;
+    });
+
+    $scope.$on('timed.out', function (evt) {
+        $scope.isAuthenticated = false;
+    });
+
+    $scope.$on('profile.pix.changed', function (evt, pic) {
+//        $rootScope.userDetails.picture = pic;
+        console.log('header pix broadcast : ' + pic);
+        $scope.loadUser();
+    });
+
+    $scope.loadUser = function () {
+        $http.get($rootScope.usersPath + '/current').success(function (resp) {
+            $scope.heading = true;
+            if (resp.code === 0) {
+                $scope.userDetails = resp;
+                $rootScope.isAuthenticated = true;
+                $scope.heading = true;
+            } else {
+                $rootScope.isAuthenticated = false;
+            }
+        });
+    };
+
+    $scope.Notifications = {};
+    $scope.notifUnreadCount = function () {
+        $http.get(notifPath + '/unread/count').success(function (resp) {
+            $scope.Notifications.unreadCount = resp.count;
+            $scope.Notifications.loaded = false;
+        });
+    };
+
+    $scope.Notifications.loaded = false;
+    $scope.isOpen = function () {
+//      alert('is open wow'); 
+        if ($scope.Notifications.loaded)
+            return;
+        $scope.notifLoading = true;
+        $http.get(notifPath + '/unread/list').success(function (resp) {
+            $scope.notifLoading = false;
+            $scope.Notifications.list = resp.notifs;
+            $scope.Notifications.unreadCount = 0;
+            $scope.Notifications.loaded = true;
+        });
+    };
+
+    $scope.notifUnreadCount();
+
+    $scope.loadUser();
+
+    $scope.runSearch = function () {
+        $rootScope.route('search', {q: $scope.Search.keyword});
+    };
+
+
+    $scope.testDialog = function () {
+        $scope.insearch = false;
+    };
+
+    $scope.logout = function () {
+        $http.get('logout').success(function () {
+
+        });
+    };
+});

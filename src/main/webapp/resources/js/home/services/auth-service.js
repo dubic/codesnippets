@@ -4,51 +4,67 @@
  * and open the template in the editor.
  */
 
-app.factory('authService', function($http, $rootScope, $q) {
+app.factory('authService', function ($http, $rootScope, $q, $stateParams, services, postsPath) {
     var factory = {};
-    factory.permissionCheck = function(dest) {
+    factory.authenticate = function (dest) {
         var deferred = $q.defer();
-        $http.get($rootScope.usersPath + '/current').success(function(resp) {
-            if (resp.code === 404) {
-                $rootScope.previous = dest;
-//                console.log('prev auth : '+$rootScope.previous);
-                $rootScope.route('login');
-//                $rootScope.$on('$locationChangeSuccess', function(next, current) {
+        $http.get($rootScope.usersPath + '/authenticated').success(function (resp) {
+            if (resp.authenticated === false) {
+                console.log('source - '+$rootScope.previous+' & dest - '+dest);
+//                if ($rootScope.previous === dest) {
+//                    console.log('nothing done');
+////                    deferred.resolve();
+//                } else {
 //                    deferred.resolve();
-//                });
+                    $rootScope.signedOut();
+                    $rootScope.previous = dest;
+//                    deferred.resolve();
+//                }
             } else {
                 deferred.resolve();
             }
-        }).error(function(r) {
+        }).error(function (r) {
             console.log('error in connection');
-//            deferred.resolve();
+            deferred.resolve();
         });
-
         return deferred.promise;
     };
-    factory.checkIsMe = function(dest) {
+
+    factory.canEditSnippet = function (dest) {
         var deferred = $q.defer();
-        console.log('checkIsMe');
-        $http.get($rootScope.usersPath + '/current').success(function(resp) {
-            if (resp.code === 404) {
-                $rootScope.previous = dest;
-                $rootScope.route('login');
-            } else {
-                deferred.resolve();
-            }
-        }).error(function(r) {
-            console.log('error in connection');
+        console.log('canEditSnippet');
+        if (angular.isUndefined($stateParams.id)) {
+            services.notify('Unauthorized operation');
 //            deferred.resolve();
-        });
+            $rootScope.route('welcome.snippets');
+//            $rootScope.signedOut();
+
+            console.log('Unauthorized operation routing');
+
+        } else {
+            $http.get(postsPath + '/canedit/' + $stateParams.id).success(function (resp) {
+                if (resp.code === 500) {
+                    services.notify(resp.msg);
+                    $rootScope.route('welcome.snippets');
+                } else if (resp.code === 404) {
+                    services.notify('You cannot edit this snippet');
+                    $rootScope.route('welcome.snippets');
+                } else {
+                    deferred.resolve();
+                }
+            }).error(function (data, status) {
+//            deferred.resolve();
+                if (status === 403)
+                    $rootScope.sessionTimedOut();
+
+            });
+        }
 
         return deferred.promise;
     };
-
     factory.isAuthenticated = false;
-
     return factory;
 });
-
 // we will return a promise .
 
 

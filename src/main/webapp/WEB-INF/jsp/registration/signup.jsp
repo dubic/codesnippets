@@ -17,7 +17,7 @@
                 <span class="error-msg" ng-show="regfrm.name.$dirty && regfrm.name.$error.ngRemoteValidate">Screen name already used</span>
                 <span class="error-msg" ng-show="regfrm.name.$dirty && regfrm.name.$error.pattern">Alphanumeric characters only</span>
                 <input class="form-control" ng-class="{'spinner':regfrm.name.$pending}" name="name" placeholder="Screen Name" type="text" ng-pattern="/^[a-z0-9]+$/i"
-                       ng-model="user.screenName" required ng-minlength="4" ng-maxlength="20" ng-remote-validate="{{usersPath}}/name-unique" ng-remote-throttle="1000"/>
+                       ng-model="user.screenName" required ng-minlength="4" ng-maxlength="20" ng-remote-validate="{{regPath}}/name-unique" ng-remote-throttle="1000"/>
             </div>
 
             <div class="form-group">
@@ -25,7 +25,7 @@
                 <span class="error-msg" ng-show="regfrm.email.$dirty && regfrm.email.$error.email">Email is not valid</span>
                 <span class="error-msg" ng-show="regfrm.email.$dirty && regfrm.email.$error.ngRemoteValidate">Email is already used</span>
                 <input class="form-control" ng-class="{'spinner':regfrm.email.$pending}" name="email" placeholder="email" type="email" ng-model="user.email" 
-                       required ng-remote-validate="{{usersPath}}/email-unique" ng-remote-throttle="1000" update-on-blur/>
+                       required ng-remote-validate="{{regPath}}/email-unique" ng-remote-throttle="1000" update-on-blur/>
             </div>
             <div class="form-group">
                 <span class="error-msg" ng-show="regfrm.password.$dirty && regfrm.password.$error.minlength">Must be more than 5 characters</span>
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <span class="error-msg" ng-show="regfrm.vpword.$dirty && regfrm.vpword.$error.match">Passwords do not match</span>
-                <input class="form-control" name="vpword" placeholder="Retype password" type="password" ng-model="user.vpword" match="user.password"/>
+                <input class="form-control" name="vpword" placeholder="Retype password" type="password" ng-model="user.vpword" val-match="user.password"/>
             </div>
 
             <div class="form-actions">

@@ -5,6 +5,7 @@
  */
 package com.dubic.codesnippets.controllers;
 
+import com.dubic.codesnippets.dto.UniqueValidation;
 import com.dubic.codesnippets.dto.UserData;
 import com.dubic.codesnippets.email.MailServiceImpl;
 import com.dubic.codesnippets.email.SimpleMailEvent;
@@ -17,7 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpSession;
@@ -58,8 +58,9 @@ public class RegistrationController {
         log.debug("SIGNUP : " + new Gson().toJson(userData));
         JsonObject resp = new JsonObject();
         try {
-            idmService.userRegistration(userData);
+            User user = idmService.userRegistration(userData);
             resp.addProperty("code", 0);
+            resp.addProperty("id", user.getId());
             resp.addProperty("msg", "your account has been created. An email will be sent to you shortly to activate your account");
         } catch (ConstraintViolationException cve) {
             for (ConstraintViolation<?> constraintViolation : cve.getConstraintViolations()) {
@@ -182,6 +183,24 @@ public class RegistrationController {
             resp.addProperty("code", 500);
             resp.addProperty("msg", "Server error occured");
         }
+        return resp;
+    }
+    
+    @RequestMapping(value = "/email-unique")
+    public @ResponseBody
+    JsonObject emailIsValid(@RequestBody UniqueValidation validation) {
+        JsonObject resp = new JsonObject();
+        resp.addProperty("value", validation.getValue());
+        resp.addProperty("isValid", idmService.getUniqueEmail(validation.getValue()) == null);
+        return resp;
+    }
+
+    @RequestMapping(value = "/name-unique")
+    public @ResponseBody
+    JsonObject nameIsValid(@RequestBody UniqueValidation validation) {
+        JsonObject resp = new JsonObject();
+        resp.addProperty("value", validation.getValue());
+        resp.addProperty("isValid", idmService.validateScreenName(validation.getValue()) == null);
         return resp;
     }
 }

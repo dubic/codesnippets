@@ -9,12 +9,12 @@
 
 <link href="/codesnippets/resources/css/home.css" rel="stylesheet" type="text/css"/>
 <div class="home">
-    <div class="msg-board msg-board-error" ng-show="error">
-        Server error occurred
-        <i d-close-button class="pull-right" style="font-size: 15px" ng-click="inact()"></i>
+    <div class="msg-board msg-board-error" ng-show="errMsg">
+        {{errMsg}}
+        <i d-close-button class="pull-right" style="font-size: 15px" ng-click="errMsg = undefined"></i>
     </div>
     <section class="intro_section">
-        <div class="middle-page">
+        <div class="middle-page-2">
             <div class="row">
                 <div class="col-md-8 col-sm-8 desc">
                     <h1 class="heading">Snip and save important codes and configurations</h1>
@@ -30,7 +30,7 @@
                             <span class="error-msg" ng-show="regfrm.name.$dirty && regfrm.name.$error.ngRemoteValidate">Screen name already used</span>
                             <span class="error-msg" ng-show="regfrm.name.$dirty && regfrm.name.$error.pattern">Alphanumeric characters only</span>
                             <input class="form-control" ng-class="{'spinner':regfrm.name.$pending}" name="name" placeholder="User Name" type="text" ng-pattern="/^[a-z0-9]+$/i"
-                                   ng-model="user.screenName" required ng-minlength="4" ng-maxlength="20" ng-remote-validate="{{usersPath}}/name-unique" ng-remote-throttle="1000"/>
+                                   ng-model="user.screenName" required ng-minlength="4" ng-maxlength="20" ng-remote-validate="{{regPath}}/name-unique" ng-remote-throttle="1000"/>
                         </div>
 
                         <div class="form-group">
@@ -38,7 +38,7 @@
                             <span class="error-msg" ng-show="regfrm.email.$dirty && regfrm.email.$error.email">Email is not valid</span>
                             <span class="error-msg" ng-show="regfrm.email.$dirty && regfrm.email.$error.ngRemoteValidate">Email is already used</span>
                             <input class="form-control" ng-class="{'spinner':regfrm.email.$pending}" name="email" placeholder="email" type="email" ng-model="user.email" 
-                                   required ng-remote-validate="{{usersPath}}/email-unique" ng-remote-throttle="1000" update-on-blur/>
+                                   required ng-remote-validate="{{regPath}}/email-unique" ng-remote-throttle="1000" update-on-blur/>
                         </div>
                         <div class="form-group">
                             <span class="error-msg" ng-show="regfrm.password.$dirty && regfrm.password.$error.minlength">Must be more than 5 characters</span>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="form-group">
                             <span class="error-msg" ng-show="regfrm.vpword.$dirty && regfrm.vpword.$error.match">Passwords do not match</span>
-                            <input class="form-control" name="vpword" placeholder="Retype password" type="password" ng-model="user.vpword" match="user.password"/>
+                            <input class="form-control" name="vpword" placeholder="Retype password" type="password" ng-model="user.vpword" val-match="user.password"/>
                         </div>
                         <button class="btn btn-block btn-success" ng-disabled="regfrm.$invalid || loading">
                             <span ng-hide="loading">Create Account</span><span ng-show="loading">Saving...</span>
@@ -65,7 +65,7 @@
     </section>
 
     <section class="features">
-        <div class="middle-page">
+        <div class="middle-page-2">
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="feature-block">

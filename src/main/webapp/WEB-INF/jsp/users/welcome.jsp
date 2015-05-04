@@ -14,10 +14,10 @@
                     <section class="sidebar">
                         <button class="btn btn-default snipbtn" ng-click="route('snip')"><i class="icon-cut"></i> Snip</button>
                         <ul class="list-unstyled  sidebar-menu margin-top-10">
-                            <li><a ng-class="{'active':active === 0}" href="" ng-click="mySnippets()"><i class="icon-cut"></i> My Snippets</a></li>
-                            <li><a ng-class="{'active':active === 1}" href="" ng-click="sharedWithMe()"><i class="icon-group"></i> Shared with me</a></li>
-                            <li><a ng-class="{'active':active === 2}" href="" ng-click="recent()"><i class="icon-time"></i> Recent</a></li>
-                            <li><a ng-class="{'active':active === 3}" href=""><i class="icon-cog"></i> Settings</a></li>
+                            <li><a ng-class="{'active':activePage === 'welcome.snippets'}" href="#/u/snippets"><i class="icon-cut"></i> My Snippets</a></li>
+                            <li><a ng-class="{'active':activePage === 'welcome.shared'}" href="#/u/shared"><i class="icon-group"></i> Shared with me</a></li>
+                            <li><a ng-class="{'active':activePage === 'welcome.recent'}" href="#/u/recent"><i class="icon-time"></i> Recent</a></li>
+                            <li><a href="#/settings/account"><i class="icon-cog"></i> Settings</a></li>
                         </ul>
                     </section>
                 </div>

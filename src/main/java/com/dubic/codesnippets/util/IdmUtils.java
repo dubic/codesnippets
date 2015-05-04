@@ -4,6 +4,10 @@
  */
 package com.dubic.codesnippets.util;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -199,6 +203,18 @@ public class IdmUtils {
     public static Validate validate(Object test){
         return new Validate(test);
     }
+    
+    public static RenderedImage resizeImage(int width, int height, BufferedImage image) {
+       Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+       int w = scaledImage.getWidth(null);
+        int h = scaledImage.getHeight(null);
+        int type = BufferedImage.TYPE_INT_RGB;  // other options
+        BufferedImage dest = new BufferedImage(w, h, type);
+        Graphics2D g2 = dest.createGraphics();
+        g2.drawImage(scaledImage, 0, 0, null);
+        g2.dispose();
+        return dest;
+    }
     public static void main(String[] arrrgh) {
         System.out.println(generateTimeToken());
 //        try {
@@ -210,7 +226,7 @@ public class IdmUtils {
 //            Thread.sleep(1000);
 //            System.out.println("token - " + generateTimeToken());
 //        } catch (InterruptedException ex) {
-//            java.util.logging.Logger.getLogger(IdmUtils.class.getName()).log(Level.SEVERE, null, ex);
+//            java.util.logging.LogManager.getLogger(IdmUtils.class.getName()).log(Level.SEVERE, null, ex);
 //        }
        
     }

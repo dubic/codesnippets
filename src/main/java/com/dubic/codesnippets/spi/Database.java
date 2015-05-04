@@ -49,7 +49,7 @@ public class Database {
 
     @Transactional
     public <T> void delete(T t) throws PersistenceException {
-        log.debug("delete {}");
+//        log.debug("delete {}");
         em.remove(t);
         log.debug("delete completed...");
     }

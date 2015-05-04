@@ -7,6 +7,23 @@ and open the template in the editor.
     Created on : Apr 1, 2014, 9:20:04 PM
     Author     : dubem
 */
+.no-decoration,.no-decoration:hover,.no-decoration:active{
+    text-decoration: none;
+}
+
+label{
+    color: #6C6A6A;
+}
+p.info{
+    color: #A59D9D;
+}
+.btn,input,textarea{
+    border-radius: 3px !important;
+}
+.icon-clickable{
+    font-size: 20px !important;
+    cursor: pointer;
+}
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
 }
@@ -125,10 +142,7 @@ and open the template in the editor.
 .underline{
     border-bottom: solid 1px #c4d5df;
 }
-.profile-bio > .row{
-    border-bottom: solid 1px #c4d5df;
-    padding: 5px 0px;
-}
+
 .nav-link{
     display: inline-block;
     /*margin-top: 10px;*/
@@ -156,28 +170,15 @@ and open the template in the editor.
     border :3px solid #C0C0C0;
     cursor:pointer;
 }
-/*.post-links li {
-    color:#9A9A9A;
-    margin: 5px 20px 5px 0px;
-    font-size: 20px;
-}
-.post-links li a{
-    color:#9A9A9A;
-    font-weight: bold;
-}
-.post-links li a:hover, .post-links li a.active{
-    color:#435DA9;
-    text-decoration: none;
-    border-bottom: 3px solid #004080;
-}*/
-.post-container > .title{
+
+/*.post-container > .title{
     border-bottom: 1px solid #D4D0D0;
     margin: 5px 10px;
 }
 .container{
     margin-top:   10px;
     padding:0px;
-}
+}*/
 .pop{
     position: absolute;
     background: #fefefe;

@@ -6,6 +6,7 @@
 
 <div class="login" style="min-width: 40%;margin-top: 42px;">
     <aside class="content">
+        <div class="alert alert-info" ng-bind="paramMsg" ng-show="paramMsg"></div>
         <form>
             <h3 class="form-title">Login to your account</h3>
             <div class="alert {{a.class}}" ng-repeat="a in alerts" ng-click="alerts.splice($index, 1)">{{a.msg}}</div>
@@ -14,7 +15,7 @@
                 <label class="control-label visible-ie8 visible-ie9">Username</label>
                 <div class="input-icon">
                     <i class="icon-user"></i>
-                    <input type="email" class="form-control" placeholder="email" name="email" autocomplete="off"  ng-model="user.email"/>
+                    <input type="email" class="form-control" placeholder="email" name="email" spellcheck="false"  ng-model="user.email"/>
                 </div>
             </div>
             <div class="form-group">

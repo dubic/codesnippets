@@ -8,8 +8,8 @@
         min-height: 300px;
     }
 </style>
-<div class="middle-page container">
-    <section class="post-container">
+<div class="view">
+    <div class="middle-page-2">
         <h3>Create a new snippet</h3>
         <hr/>
         <form name="frm" class="form-horizontal">
@@ -38,7 +38,7 @@
                 <div class="col-sm-6">
                     <select class="input-medium" select2 name="lang" ng-model="Snip.lang" required>
                         <option value="">--Please select--</option>
-                        <option ng-repeat="l in langs track by $index" value="l" ng-bind="l"></option>
+                        <option ng-repeat="l in langs track by $index" value="{{l}}" ng-bind="l"></option>
                     </select>
                     <!--<button class="btn btn-primary btn-sm">Create <i class="icon-plus"></i></button>-->
                 </div>
@@ -47,7 +47,7 @@
                 <label class="col-sm-2 control-label">Code</label>
                 <div class="col-sm-10">
                     <!--<div class="action-bar"><button class="btn btn-default"><i class="icon-bold"></i></button></div>-->
-                    <textarea class="form-control codearea"  spellcheck="false" name="code" ng-model="Snip.code" required></textarea>
+                    <textarea class="form-control codearea" spellcheck="false" name="code" ng-model="Snip.code" required></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -56,9 +56,10 @@
                         <span ng-show="!saving">Save</span>
                         <span ng-show="saving">Saving...</span>
                     </button>
-                    <button type="cancel" class="btn btn-danger" ng-click="route('snippets')">cancel</button>
+                    <button type="cancel" class="btn btn-danger" ng-click="route('welcome.snippets')">cancel</button>
                 </div>
             </div>
         </form>
-    </section>
+
+    </div>
 </div>

@@ -5,7 +5,10 @@
  */
 package com.dubic.codesnippets.auth;
 
+import com.dubic.codesnippets.models.User;
 import com.dubic.codesnippets.spi.IdentityService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +32,16 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         log.info(String.format("[%s] successfully authenticated", (String) a.getPrincipal()));
         hsr1.setContentType("application/json");
         hsr1.setStatus(HttpServletResponse.SC_OK);
+        User user = idmService.findUserByEmail((String) a.getPrincipal());
+        JsonObject resp = new JsonObject();
         
+        resp.addProperty("code", 0);
+        resp.addProperty("id", user.getId());
+        resp.addProperty("email", user.getEmail());
+        resp.addProperty("picture", user.getPicture());
+        resp.addProperty("screenName", user.getScreenName());
+        hsr1.getWriter().write(new Gson().toJson(resp));
+        hsr1.getWriter().flush();
     }
 
 }

@@ -50,7 +50,7 @@
                 <span class="error-msg" ng-show="pwform.vpword.$error.match">Passwords do not match</span>
                 <div class="input-icon">
                     <i class="icon-lock"></i>
-                    <input class="form-control" autocomplete="off" type="password" name="vpword" placeholder="retype password" required ng-model="User.confirmPassword" match="User.password">
+                    <input class="form-control" autocomplete="off" type="password" name="vpword" placeholder="retype password" required ng-model="User.confirmPassword" val-match="User.password">
                 </div>
             </div>
             <div class="margin-top-10 form-actions">
